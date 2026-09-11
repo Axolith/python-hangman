@@ -20,7 +20,7 @@ def main():
 				else:
 					count += 1
 					ask_user(letter, no_of_guesses, guessed_letters, word)
-					if no_of_guesses == i:
+					if no_of_guesses == count:
 						lose_statement(letter, no_of_guesses, guessed_letters, word)
 
 
@@ -31,8 +31,8 @@ def dash(guessed_letters, word):
 		for item in guessed_letters:
 			if letter == item:
 				result[index] = letter
-		for l in result:
-			display += result
+	for l in result:
+		display += result
 	return display
 			
 def is_valid(word, letter):
@@ -41,7 +41,6 @@ def is_valid(word, letter):
 			return True
 		else:
 			return False
-
 
 
 def alphabet_update(word, guessed_letters):
@@ -57,14 +56,21 @@ def alphabet_update(word, guessed_letters):
 	return update
 
 def is_won(word, guessed_letters):
-	updated_word = alphabet_update(word, guessed_letters)
-	for items in updated_word:
-		for elements in guessed_letters:
+	display = alphabet_update(word, guessed_letters)
+	for items in display:
 			if items == "-":
 				return False
 			else:
 				return True
-	
+def lose_statement(letter, no_of_guesses, guessed_letters,word):
+	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: dash(guessed_letters, word)
+	Unused letters: alphabet_update(word, guessed_letters)
+	SORRY YOU ARE HANGED!""")
+
+def wom_statement(letter, no_of_guesses, guessed_letters,word):
+	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: dash(guessed_letters, word)
+	Unused letters: alphabet_update(word, guessed_letters)
+	CONGRATULATIONS! You Win!""")
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):
 	guessed_letters.append(letter)

@@ -3,15 +3,20 @@ def main():
 		guessed_letters = []
 		letter = ""
 		word = input("Please enter a word for the other player to guess:\n")
-		no_of_guesses = int(input("Please enter the number of guesses:\n"))
 		if word == "QUIT":
 			break
+		no_of_guesses = int(input("Please enter the number of guesses:\n"))
+
 
 
 		ask_user(letter, no_of_guesses, guessed_letters, word)
 		while no_of_guesses != 0:
+
 			if is_valid(letter, no_of_guesses, guessed_letters, word) == True:
 				ask_user(letter, no_of_guesses, guessed_letters, word)
+				if is_won(word, guessed_letters):
+					print("CONGRATULATIONS! You Win!")
+					break
 			else:
 				no_of_guesses -= 1
 				ask_user(letter, no_of_guesses, guessed_letters, word)
@@ -19,6 +24,7 @@ def main():
 			if no_of_guesses == 0:
 				print("SORRY YOU ARE HANGED!")
 				break
+			
 
 
 
@@ -60,10 +66,7 @@ def is_won(word, guessed_letters):
 	for items in display:
 		if items == "-":
 			won = False
-		if won:
-			statement = print("CONGRATULATIONS! You Win!")
-			break
-	return statement
+	return won
 
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):

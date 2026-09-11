@@ -2,7 +2,6 @@ def main():
 	while True:
 		guessed_letters = []
 		letter = ""
-		count = 0
 		word = input("Please enter a word for the other player to guess:\n")
 		no_of_guesses = int(input("Please enter the number of guesses:\n"))
 
@@ -11,17 +10,22 @@ def main():
 		if word == "QUIT":
 			break
 		
-		else:
-			while no_of_guesses >= count:
-				if is_valid(word, letter):
-					ask_user(letter, no_of_guesses, guessed_letters, word)
-					if is_won:
-						won_statement(letter, no_of_guesses, guessed_letters, word)
-				else:
-					count += 1
-					ask_user(letter, no_of_guesses, guessed_letters, word)
-					if no_of_guesses == count:
-						lose_statement(letter, no_of_guesses, guessed_letters, word)
+		while no_of_guesses != 0:
+			if is_valid(letter, no_of_guesses, guessed_letters, word):
+				ask_user(letter, no_of_guesses, guessed_letters, word)
+				if is_won(word, guessed_letters):
+					print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)}
+					Unused letters: {alphabet_update(word, guessed_letters)}
+					CONGRATULATIONS! You Win!""")
+
+			else:
+				no_of_guesses -= 1
+				ask_user(letter, no_of_guesses, guessed_letters, word)
+				if no_of_guesses == 0:
+					print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)}
+					Unused letters: {alphabet_update(word, guessed_letters)}
+					SORRY YOU ARE HANGED!""")
+					break
 
 
 def dash(guessed_letters, word):
@@ -32,10 +36,11 @@ def dash(guessed_letters, word):
 			if letter == item:
 				result[index] = letter
 	for l in result:
-		display += result
+		display += l
 	return display
 			
-def is_valid(word, letter):
+def is_valid(letter, no_of_guesses, guessed_letters, word):
+	letter = ask_user(letter, no_of_guesses, guessed_letters, word)
 	for element in word:
 		if letter == element:
 			return True
@@ -62,20 +67,13 @@ def is_won(word, guessed_letters):
 				return False
 			else:
 				return True
-def lose_statement(letter, no_of_guesses, guessed_letters,word):
-	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: dash(guessed_letters, word)
-	Unused letters: alphabet_update(word, guessed_letters)
-	SORRY YOU ARE HANGED!""")
 
-def wom_statement(letter, no_of_guesses, guessed_letters,word):
-	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: dash(guessed_letters, word)
-	Unused letters: alphabet_update(word, guessed_letters)
-	CONGRATULATIONS! You Win!""")
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):
-	guessed_letters.append(letter)
-	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: dash(guessed_letters, word)
-	Unused letters: alphabet_update(word, guessed_letters)""")
+	
+	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)}
+	Unused letters: {alphabet_update(word, guessed_letters)}\n""")
+	guessed_letters = guessed_letters.append(letter)
 	return letter
 
 main()

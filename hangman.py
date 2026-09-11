@@ -4,28 +4,24 @@ def main():
 		letter = ""
 		word = input("Please enter a word for the other player to guess:\n")
 		no_of_guesses = int(input("Please enter the number of guesses:\n"))
-
-		ask_user(letter, no_of_guesses, guessed_letters, word)
-
 		if word == "QUIT":
 			break
-		
-		while no_of_guesses != 0:
-			if is_valid(letter, no_of_guesses, guessed_letters, word):
-				ask_user(letter, no_of_guesses, guessed_letters, word)
-				if is_won(word, guessed_letters):
-					print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)}
-					Unused letters: {alphabet_update(word, guessed_letters)}
-					CONGRATULATIONS! You Win!""")
 
+
+		ask_user(letter, no_of_guesses, guessed_letters, word)
+		while no_of_guesses != 0:
+			if is_valid(letter, no_of_guesses, guessed_letters, word) == True:
+				ask_user(letter, no_of_guesses, guessed_letters, word)
 			else:
 				no_of_guesses -= 1
 				ask_user(letter, no_of_guesses, guessed_letters, word)
-				if no_of_guesses == 0:
-					print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)}
-					Unused letters: {alphabet_update(word, guessed_letters)}
-					SORRY YOU ARE HANGED!""")
-					break
+
+			if no_of_guesses == 0:
+				print("SORRY YOU ARE HANGED!")
+				break
+
+
+
 
 
 def dash(guessed_letters, word):
@@ -44,8 +40,6 @@ def is_valid(letter, no_of_guesses, guessed_letters, word):
 	for element in word:
 		if letter == element:
 			return True
-		else:
-			return False
 
 
 def alphabet_update(word, guessed_letters):
@@ -53,7 +47,7 @@ def alphabet_update(word, guessed_letters):
 	update = ""
 	for letters in alphabet:
 		found = False
-		for elements in word:
+		for elements in guessed_letters:
 			if letters == elements:
 				found = True
 		if not found:
@@ -61,19 +55,23 @@ def alphabet_update(word, guessed_letters):
 	return update
 
 def is_won(word, guessed_letters):
+	won = True
 	display = alphabet_update(word, guessed_letters)
 	for items in display:
-			if items == "-":
-				return False
-			else:
-				return True
+		if items == "-":
+			won = False
+		if won:
+			statement = print("CONGRATULATIONS! You Win!")
+			break
+	return statement
 
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):
-	
-	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)}
-	Unused letters: {alphabet_update(word, guessed_letters)}\n""")
-	guessed_letters = guessed_letters.append(letter)
+	letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
+Unused letters: {alphabet_update(word, guessed_letters)}\n""")
+	guessed_letters.append(letter)
 	return letter
 
 main()
+
+

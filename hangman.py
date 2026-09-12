@@ -190,7 +190,7 @@ def stick_figure(no_of_guesses, initial_guess):
      |
     _|___
 	"""
-	if incorrect_guesses == 10 or no_of_guesses == 0:
+	if no_of_guesses == 0:
 		figure = """
       _______
      |/      |

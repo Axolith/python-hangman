@@ -78,131 +78,129 @@ Unused letters: {alphabet_update(word, guessed_letters)}\n""")
 def stick_figure(no_of_guesses, initial_guess):
 	incorrect_guesses = initial_guess - no_of_guesses
 	figure = ""
-	difference = 10 // (initial_guess - 1)
-	for stage in range(0, 10, difference):
-		if stage == 0:
-			figure = """
-		_______
-		|/      
-		|      
-		|      
-		|      
-		|      
-		|
-		_|___
-		"""
-		elif stage == 1:
-			figure = """
-		_______
-		|/      |
-		|      
-		|      
-		|       
-		|      
-		|
-		_|___
-		"""
-		elif stage == 2:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|       
-		|      
-		|      
-		|
-		_|___
-		"""
-		elif stage == 3:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|       |
-		|      
-		|      
-		|
-		_|___
-		"""
+	if incorrect_guesses == 0:
+		figure = """
+      _______
+     |/      
+     |      
+     |      
+     |      
+     |      
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 1:
+		figure = """
+      _______
+     |/      |
+     |      
+     |      
+     |       
+     |      
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 2:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |       
+     |      
+     |      
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 3:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |       |
+     |      
+     |      
+     |
+    _|___
+	"""
 
-		elif stage == 4:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|      /|
-		|       
-		|      
-		|
-		_|___
-		"""
-		elif stage == 5:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|      /|\\
-		|       
-		|      
-		|
-		_|___
-		"""
+	elif incorrect_guesses == 4:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |      /|
+     |       
+     |      
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 5:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |      /|\\
+     |       
+     |      
+     |
+    _|___
+	"""
 
-		elif stage == 6:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|      /|\\
-		|       |
-		|      
-		|
-		_|___
-		"""
-		elif stage == 7:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|      /|\\
-		|       |
-		|      /
-		|
-		_|___
-		"""
-		elif stage == 8:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|      /|\\
-		|       |
-		|      / \\
-		|
-		_|___
-		"""
-		elif stage == 9:
-			figure = """
-		_______
-		|/      |
-		|      (_)
-		|      \\|/
-		|       |
-		|      / \\
-		|
-		_|___
-		"""
-		elif stage >= 10:
-			figure = """
-		_______
-		|/      |
-		|       ☠️
-		|      \\|/
-		|       |
-		|      / \\ 
-		|
-		_|___
-		"""
+	elif incorrect_guesses == 6:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |      /|\\
+     |       |
+     |      
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 7:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |      /|\\
+     |       |
+     |      /
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 8:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |      /|\\
+     |       |
+     |      / \\
+     |
+    _|___
+	"""
+	elif incorrect_guesses == 9:
+		figure = """
+      _______
+     |/      |
+     |      (_)
+     |      \\|/
+     |       |
+     |      / \\
+     |
+    _|___
+	"""
+	if incorrect_guesses == 10 or no_of_guesses == 0:
+		figure = """
+      _______
+     |/      |
+     |       ☠️
+     |      \\|/
+     |       |
+     |      / \\ 
+     |
+    _|___
+	"""
 	return figure
 main()
 

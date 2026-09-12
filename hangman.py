@@ -7,23 +7,16 @@ def main():
 			break
 		no_of_guesses = int(input("Please enter the number of guesses:\n"))
 
-
 		while no_of_guesses != 0:
-			ask_user(letter, no_of_guesses, guessed_letters, word)
-
-			if is_valid(letter, no_of_guesses, guessed_letters, word) == True:
-				ask_user(letter, no_of_guesses, guessed_letters, word)
-				if is_won(word, guessed_letters):
-					print("CONGRATULATIONS! You Win!")
-					break
-			else:
-				no_of_guesses -= 1
-				ask_user(letter, no_of_guesses, guessed_letters, word)
-
-			if no_of_guesses == 0:
-				print("SORRY YOU ARE HANGED!")
+			letter = ask_user(letter, no_of_guesses, guessed_letters, word)
+			if is_won(word, guessed_letters):
+				won_statement(letter, no_of_guesses, guessed_letters, word)
 				break
-			
+			if not is_valid(letter, word):
+				no_of_guesses -= 1
+			if no_of_guesses == 0:
+				lost_statement(letter, no_of_guesses, guessed_letters, word)
+				break		
 
 def dash(guessed_letters, word):
 	result = ["-"] * len(word)
@@ -36,13 +29,21 @@ def dash(guessed_letters, word):
 		display += l
 	return display
 			
-def is_valid(letter, no_of_guesses, guessed_letters, word):
-	letter = ask_user(letter, no_of_guesses, guessed_letters, word)
+def is_valid(letter,word):
 	for element in word:
-		if letter == element:
+		if element == letter:
 			return True
+	return False
 
 
+def is_won(word, guessed_letters):
+	display = dash(guessed_letters, word)
+	for items in display:
+		if items == "-":
+			return False
+
+	return True
+		
 def alphabet_update(word, guessed_letters):
 	alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	update = ""
@@ -55,13 +56,15 @@ def alphabet_update(word, guessed_letters):
 			update += letters
 	return update
 
-def is_won(word, guessed_letters):
-	display = alphabet_update(word, guessed_letters)
-	for items in display:
-		if items == "-":
-			return False
-		else:
-			return True
+def won_statement(letter, no_of_guesses, guessed_letters, word):
+	statement= print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
+Unused letters: {alphabet_update(word, guessed_letters)} CONGRATULATIONS! You Win!""")
+	return statement
+
+def lost_statement(letter, no_of_guesses, guessed_letters, word):
+	statement= print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
+Unused letters: {alphabet_update(word, guessed_letters)} SORRY YOU ARE HANGED!""")
+	return statement
 
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):

@@ -41,7 +41,6 @@ def is_won(word, guessed_letters):
 	for items in display:
 		if items == "-":
 			return False
-
 	return True
 		
 def alphabet_update(word, guessed_letters):
@@ -57,14 +56,14 @@ def alphabet_update(word, guessed_letters):
 	return update
 
 def won_statement(letter, no_of_guesses, guessed_letters, word):
-	statement= print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
+	print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
 Unused letters: {alphabet_update(word, guessed_letters)} CONGRATULATIONS! You Win!""")
-	return statement
+
 
 def lost_statement(letter, no_of_guesses, guessed_letters, word):
-	statement= print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
+	print(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
 Unused letters: {alphabet_update(word, guessed_letters)} SORRY YOU ARE HANGED!""")
-	return statement
+
 
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):

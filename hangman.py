@@ -47,12 +47,11 @@ def main():
                 won_statement(letter, no_of_guesses, guessed_letters, word, initial_guess)
                 break
             if not is_valid(letter, word):
-                if not duplicate(letter, guessed_letters):
-                    no_of_guesses -= 1
-                
+                if not duplicate(letter, no_of_guesses, guessed_letters, word):
             if no_of_guesses == 0:
                 lost_statement(letter, no_of_guesses, guessed_letters, word, initial_guess)
                 break
+
 def dash(guessed_letters, word):
     result = ["-"] * len(word)
     display = ""
@@ -70,9 +69,10 @@ def is_valid(letter, word):
             return True
     return False
 
-def duplicate(letter, guessed_letters):
+def duplicate(letter, no_of_guesses, guessed_letters, word):
     for element in guessed_letters:
-        if element == letter:
+        if element != letter:
+            no_of_guesses -= 1
             return False
     return True
 

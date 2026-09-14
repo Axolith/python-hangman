@@ -4,12 +4,12 @@ def main():
         guessed_letters = []
         letter = ""
         option = input("""How would you like to choose the word?
-1. Pick a word from the word list 
+1. Pick a word from a pre-selected list 
 2. Enter my own word 
         Choice: """)
         if option == "2":
             word = input("Please enter a word for the other player to guess:\n")
-        if option == "1":
+        elif option == "1":
             words = [
             "APPLE",
             "PYTHON",
@@ -46,8 +46,10 @@ def main():
             if is_won(word, guessed_letters):
                 won_statement(letter, no_of_guesses, guessed_letters, word, initial_guess)
                 break
-            if not is_valid(letter, word):
-                if not duplicate(letter, no_of_guesses, guessed_letters, word):
+            if not is_valid(letter, word, no_of_guesses, guessed_letters) and not duplicate(letter, guessed_letters):
+                no_of_guesses -= 1
+            if duplicate(letter, guessed_letters):
+                print("Sorry this letter has been used")
             if no_of_guesses == 0:
                 lost_statement(letter, no_of_guesses, guessed_letters, word, initial_guess)
                 break
@@ -63,18 +65,19 @@ def dash(guessed_letters, word):
         display += l
     return display
             
-def is_valid(letter, word):
+def is_valid(letter, word, no_of_guesses, guessed_letters):
     for element in word:
         if element == letter:
             return True
     return False
 
-def duplicate(letter, no_of_guesses, guessed_letters, word):
+def duplicate(letter, guessed_letters):
+    duplicate = False
     for element in guessed_letters:
-        if element != letter:
-            no_of_guesses -= 1
-            return False
-    return True
+        if element == letter:
+            duplicate = True
+    return duplicate
+
 
 def is_won(word, guessed_letters):
     display = dash(guessed_letters, word)
@@ -107,9 +110,10 @@ Unused letters: {alphabet_update(word, guessed_letters)} SORRY YOU ARE HANGED!""
 
 
 def ask_user(letter, no_of_guesses, guessed_letters, word):
+    guessed_letters.append(letter)
     letter = input(f"""Guess the word, {no_of_guesses} guess(es) left: {dash(guessed_letters, word)} 
 Unused letters: {alphabet_update(word, guessed_letters)}\n""")
-    guessed_letters.append(letter)
+
     return letter
 
 def stick_figure(no_of_guesses, initial_guess):

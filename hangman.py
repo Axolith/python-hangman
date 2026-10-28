@@ -6,6 +6,7 @@ def main():
         option = input("""How would you like to choose the word?
 1. Pick a word from a pre-selected list (Type '1')
 2. Enter my own word (Type '2')
+3. Quit (Type '3')
         Choice: """)
         if option == "2":
             word = input("Please enter a word for the other player to guess:\n")
@@ -33,7 +34,8 @@ def main():
             "LIGHTNING"
             ]
             word = random.choice(words)
-
+        elif option == "3":
+            break
         if word == "QUIT":
             break
 
